@@ -48,13 +48,82 @@
 - User acceptance testing
 
 ### DB Schema / Tables
-1. users (id, email, password_hash, role, name, created_at)
-2. courses (id, title, description, repo_url, is_public, created_at)
-3. assignments (id, course_id, title, description, due_date, github_url, order)
-4. submissions (id, assignment_id, user_id, github_url, submitted_at, status)
-5. feedback (id, submission_id, reviewer_id, content, rating, created_at)
-6. progress (id, user_id, assignment_id, status, completed_at)
-7. surveys (id, assignment_id, user_id, difficulty_rating, comments, created_at)
+```plaintext
+1. users
+   - id (PRIMARY KEY)
+   - github_id (UNIQUE, for OAuth)
+   - github_username
+   - email
+   - name
+   - avatar_url
+   - role (ENUM: 'participant', 'volunteer', 'admin')
+   - created_at
+
+2. courses
+   - id (PRIMARY KEY)
+   - title
+   - description
+   - repo_url (GitHub repo for course materials)
+   - is_public (BOOLEAN - for public roadmap)
+   - created_at
+   - updated_at
+
+3. assignments
+   - id (PRIMARY KEY)
+   - course_id (FOREIGN KEY → courses)
+   - title
+   - description
+   - due_date
+   - github_instruction_url (link to assignment instructions)
+   - order (for sequencing)
+   - created_at
+
+4. submissions
+   - id (PRIMARY KEY)
+   - assignment_id (FOREIGN KEY → assignments)
+   - user_id (FOREIGN KEY → users)
+   - github_url (participant's submission URL)
+   - submitted_at
+   - status (ENUM: 'pending', 'reviewed', 'needs_revision')
+   - updated_at
+
+5. feedback
+   - id (PRIMARY KEY)
+   - submission_id (FOREIGN KEY → submissions)
+   - reviewer_id (FOREIGN KEY → users)
+   - rating (INTEGER 1-5, structured feedback)
+   - category (TEXT - e.g., 'code_quality', 'completeness')
+   - content (TEXT - free-form feedback)
+   - created_at
+
+6. progress
+   - id (PRIMARY KEY)
+   - user_id (FOREIGN KEY → users)
+   - assignment_id (FOREIGN KEY → assignments)
+   - status (ENUM: 'not_started', 'in_progress', 'completed')
+   - completed_at
+
+7. survey_templates
+   - id (PRIMARY KEY)
+   - assignment_id (FOREIGN KEY → assignments)
+   - questions (JSONB - array of question objects with type, label, options)
+   - created_at
+
+8. survey_responses
+   - id (PRIMARY KEY)
+   - survey_template_id (FOREIGN KEY → survey_templates)
+   - user_id (FOREIGN KEY → users)
+   - responses (JSONB - answers to questions)
+   - created_at
+
+9. notifications
+   - id (PRIMARY KEY)
+   - user_id (FOREIGN KEY → users)
+   - type (ENUM: 'new_assignment', 'feedback_received', 'assignment_due')
+   - content (TEXT)
+   - read (BOOLEAN)
+   - created_at
+```
 
 ### Backend API Endpoints
 
@@ -103,44 +172,111 @@
 ### Frontend File Structure
 
 ```plaintext
-src/
-├── components/
-│   ├── common/
-│   │   ├── Navbar.jsx
-│   │   ├── InfoTooltip.jsx (hover icon with description)
-│   │   ├── Button.jsx (with cursor pointer on hover)
-│   │   └── ProgressIndicator.jsx (green checkmarks)
-│   ├── auth/
-│   │   ├── Login.jsx
-│   │   └── Register.jsx
-│   ├── participant/
-│   │   ├── Dashboard.jsx
-│   │   ├── AssignmentList.jsx
-│   │   ├── AssignmentCard.jsx
-│   │   ├── SubmissionForm.jsx
-│   │   ├── FeedbackView.jsx
-│   │   └── ProgressTracker.jsx
-│   ├── admin/
-│   │   ├── AdminDashboard.jsx
-│   │   ├── CourseManager.jsx
-│   │   ├── AssignmentManager.jsx
-│   │   ├── BulkAssignForm.jsx
-│   │   ├── SubmissionReview.jsx
-│   │   ├── FeedbackForm.jsx
-│   │   └── ExportButton.jsx
-│   └── public/
-│       └── PublicRoadmap.jsx
-├── pages/
-│   ├── Home.jsx
-│   ├── ParticipantDashboard.jsx
-│   ├── AdminDashboard.jsx
-│   └── Roadmap.jsx
-├── services/
-│   └── api.js (axios configuration)
-├── context/
-│   └── AuthContext.jsx
-└── styles/
-    └── theme.js (color palette & typography)
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── InfoTooltip.jsx (hover icon with description bubble)
+│   │   │   ├── Button.jsx (cursor pointer on hover)
+│   │   │   ├── ProgressIndicator.jsx (green checkmarks)
+│   │   │   └── NotificationBell.jsx (for email notifications)
+│   │   ├── auth/
+│   │   │   └── GitHubLogin.jsx (OAuth flow)
+│   │   ├── participant/
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── AssignmentList.jsx
+│   │   │   ├── AssignmentCard.jsx
+│   │   │   ├── SubmissionForm.jsx (GitHub URL submission)
+│   │   │   ├── FeedbackView.jsx (view received feedback)
+│   │   │   ├── ProgressTracker.jsx (visual progress with checkmarks)
+│   │   │   └── SurveyForm.jsx (configurable survey inputs)
+│   │   ├── admin/
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── CourseManager.jsx (CRUD courses)
+│   │   │   ├── AssignmentManager.jsx (CRUD assignments)
+│   │   │   ├── BulkAssignForm.jsx (assign to all participants)
+│   │   │   ├── SubmissionReview.jsx (view all submissions)
+│   │   │   ├── FeedbackForm.jsx (give structured + free-form feedback)
+│   │   │   ├── SurveyBuilder.jsx (create configurable surveys)
+│   │   │   ├── SurveyResults.jsx (view aggregated survey data)
+│   │   │   └── ExportButton.jsx (CSV download)
+│   │   ├── volunteer/
+│   │   │   ├── VolunteerDashboard.jsx
+│   │   │   ├── ParticipantList.jsx (all participants, limited data)
+│   │   │   ├── LimitedSubmissionView.jsx (can't see all details)
+│   │   │   └── GiveFeedback.jsx (can give feedback)
+│   │   └── public/
+│   │       └── PublicRoadmap.jsx (no auth required)
+│   ├── pages/
+│   │   ├── Home.jsx (landing page with GitHub login)
+│   │   ├── ParticipantDashboard.jsx (route: /participant)
+│   │   ├── AdminDashboard.jsx (route: /admin)
+│   │   ├── VolunteerDashboard.jsx (route: /volunteer)
+│   │   └── Roadmap.jsx (route: /roadmap - public)
+│   ├── services/
+│   │   └── api.js (axios configuration with auth headers)
+│   ├── context/
+│   │   └── AuthContext.jsx (user state, role, GitHub profile)
+│   ├── hooks/
+│   │   ├── useAuth.js
+│   │   └── useNotifications.js
+│   └── styles/
+│       ├── theme.js (color palette + typography)
+│       └── globals.css
+```
+
+### Backend File Structure
+```plaintext
+backend/
+├── config/
+│   ├── database.js (PostgreSQL connection pool)
+│   ├── github-oauth.js (Passport GitHub strategy)
+│   └── email.js (Nodemailer SMTP config)
+├── middleware/
+│   ├── auth.js (JWT verification)
+│   └── permissions.js (RBAC: admin/volunteer/participant)
+├── routes/
+│   ├── auth.js (GitHub OAuth callback, JWT generation)
+│   ├── users.js
+│   ├── courses.js
+│   ├── assignments.js
+│   ├── submissions.js
+│   ├── feedback.js
+│   ├── progress.js
+│   ├── surveys.js (templates + responses)
+│   ├── notifications.js
+│   └── export.js (CSV generation)
+├── controllers/
+│   ├── authController.js
+│   ├── userController.js
+│   ├── courseController.js
+│   ├── assignmentController.js
+│   ├── submissionController.js
+│   ├── feedbackController.js
+│   ├── progressController.js
+│   ├── surveyController.js
+│   └── notificationController.js
+├── models/
+│   ├── User.js (database queries)
+│   ├── Course.js
+│   ├── Assignment.js
+│   ├── Submission.js
+│   ├── Feedback.js
+│   ├── Progress.js
+│   ├── Survey.js
+│   └── Notification.js
+├── utils/
+│   ├── emailService.js (send notification emails)
+│   ├── csvExport.js (generate CSV from data)
+│   └── validators.js (input validation helpers)
+├── migrations/
+│   └── 001_initial_schema.sql
+├── seeds/
+│   └── test_data.sql
+├── .env.example
+├── package.json
+└── server.js
 ```
 
 ### Feature by User Role
