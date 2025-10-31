@@ -41,8 +41,6 @@ __A comprehensive software engineering program course management system built wi
 - Provide feedback on submissions
 - Track participant progress
 - Limited access compared to administrators
-
-### Production Deployment
 - Set `NODE_ENV=production` in environment variables, in backend
 - Update `FRONTEND_URL` to production URL, in backend
 - Frontend Build: `npm run build`
@@ -52,29 +50,6 @@ __A comprehensive software engineering program course management system built wi
     - SMTP credentials
     - JWT secret (use a strong, unique secret)
     - Frontend URL (production domain)
-
-### Starter Notes
-**Database Creation and Connection**
-1. Open PostgreSQL command line or pgAdmin: `psql -U postgres;`
-2. Create a PostgreSQL database: `CREATE DATABASE course_management;`
-3. Run the migration script: `psql -U postgres -d course_management -f migrations/001_initial_schema.sql`
-4 (Optional) Seed test data: `psql -U postgres -d course_management -f seeds/test_data.sql`
-5. Create a .env file with your database credentials
-    - Database credentials
-    - GitHub OAuth credentials (see GitHub OAuth Setup below)
-    - JWT secret
-    - SMTP email credentials
-    - Frontend URL    
-4. Run the migration scripts with `npm run migrate` -or- create a new migration:
-    ```bash
-    cd backend/migrations
-    # Create new file: 002_migration_name.sql
-    psql -U postgres -d course_management -f 002_migration_name.sql
-    ```
-
-<!-- **Package Installation**
-- Backend: `npm install express pg cors dotenv bcrypt jsonwebtoken express-validator`
-- Frontend: `npm install react react-dom react-router-dom axios` -->
 
 ### Technical Stack
 **Backend**
@@ -107,8 +82,9 @@ __A comprehensive software engineering program course management system built wi
     - Runs Vite dev server with HMR
 - Configure ports and CORS
 
-### Frontend File Structure
+### Project File Structure
 
+**Frontend**
 ```plaintext
 frontend/
 ├── src/
@@ -164,7 +140,7 @@ frontend/
 │       └── globals.css
 ```
 
-### Backend File Structure
+**Backend**
 ```plaintext
 backend/
 ├── config/
@@ -296,7 +272,22 @@ backend/
 3. Add to .env file
 4. Configure email templates + SMTP settings in `backend/.env` according to your email provider's documentation.
 
-### DB Schema / Tables
+### Database
+**Database Creation and Connection**
+1. Open PostgreSQL command line or pgAdmin: `psql -U postgres;`
+2. Create a PostgreSQL database: `CREATE DATABASE course_management;`
+3. Run the migration script: `psql -U postgres -d course_management -f migrations/001_initial_schema.sql`
+- Test data (optional step): `psql -U postgres -d course_management -f seeds/test_data.sql`
+- Create new file (002_migration_name.sql): `psql -U postgres -d course_management -f 002_migration_name.sql`
+5. Create a .env file with:
+    - Database credentials
+    - GitHub OAuth credentials (see GitHub OAuth Setup below)
+    - JWT secret
+    - SMTP email credentials
+    - Frontend URL    
+4. Run the migration scripts in `backend/migrations` with `npm run migrate`
+
+**Schema with Nine Tables**
 
 ```plaintext
 1. users (user accounts with GitHub OAuth)
@@ -374,6 +365,8 @@ backend/
    - read (BOOLEAN)
    - created_at
 ```
+
+### Production Deployment
 
 ### Testing
 - Write and run unit tests
