@@ -310,20 +310,22 @@ backend/
 - Navigate to your role-specific dashboard
 
 ### Environment Variables
-   - Database credentials
-   - GitHub OAuth credentials
-   - JWT secret (generate a random string)
-   - SMTP email credentials
-   - Frontend URL
+
+- Database credentials
+- GitHub OAuth credentials
+- JWT secret (generate a random string)
+- SMTP email credentials
+- Frontend URL
 
 ### Database
 
 **Database Creation and Connection**
+
 1. Open PostgreSQL command line or pgAdmin: `psql -U postgres;`
 2. Create a PostgreSQL database: `CREATE DATABASE course_management;`
 3. Run initial migration script in `backend/migrations`: `npm run migrate`, you may need to edit the script to `psql course_management -f migrations/001_initial_schema.sql`
-4. Run test data (optional step) script: `npm run seed`, you may need to edit the script to `psql course_management -f seeds/test_data.sql`
-5. Create new file (002_migration_name.sql): `psql -U postgres -d course_management -f 002_migration_name.sql` (you may not need `-U postgres -d` depending on your postgresql setup)
+4. Run test data (optional step) script: `npm run seed`, you may need to edit the script to `psql -U $DB_USER -d $DB_NAME -f migrations/001_initial_schema.sql`
+5. Create new file (002_migration_name.sql): `psql -U $DB_USER -d $DB_NAME -f seeds/test_data.sql` 
 
 **Schema with Nine Tables**
 
