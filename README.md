@@ -1,20 +1,24 @@
 # Course Management System
 
-__A comprehensive software engineering program course management system built with PostgreSQL, Express, React, and Node.js for managing assignments, submissions, feedback, and progress tracking.__
+A comprehensive software engineering program course management system built with PostgreSQL, Express, React, and Node.js for managing assignments, submissions, feedback, and progress tracking.
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - PostgreSQL (v14 or higher)
 - GitHub OAuth App credentials
 - SMTP email service (Gmail, SendGrid, etc.)
 
 ### Feature by User Role
+
 **Public:**
+
 - Public roadmap showing course schedule
 - View course curriculum and assignment timeline
 - No authentication required
 
 **Participant:**
+
 - Submit feedback about assignments (difficulty survey)
 - View curriculum/assignment instructions (links to GitHub repo)
 - Filter assignments (completed, pending, graded)
@@ -27,6 +31,7 @@ __A comprehensive software engineering program course management system built wi
 - Real-time notifications for new assignments and feedback
 
 **Admin/Staff:**
+
 - Create/edit/delete courses and assignments
 - Assign assignments to all participants at once
 - View all submissions
@@ -37,6 +42,7 @@ __A comprehensive software engineering program course management system built wi
 - Manage user roles and permissions
 
 **Volunteer Mentor:**
+
 - View all participants with limited data access
 - Provide feedback on submissions
 - Track participant progress
@@ -45,14 +51,16 @@ __A comprehensive software engineering program course management system built wi
 - Update `FRONTEND_URL` to production URL, in backend
 - Frontend Build: `npm run build`
 - Set production environment variables:
-    - Database connection (production PostgreSQL)
-    - GitHub OAuth (update callback URL to production)
-    - SMTP credentials
-    - JWT secret (use a strong, unique secret)
-    - Frontend URL (production domain)
+  - Database connection (production PostgreSQL)
+  - GitHub OAuth (update callback URL to production)
+  - SMTP credentials
+  - JWT secret (use a strong, unique secret)
+  - Frontend URL (production domain)
 
 ### Technical Stack
+
 **Backend**
+
 - **Node.js** - Runtime environment
 - **Express** - Web framework
 - **PostgreSQL** - Database
@@ -62,6 +70,7 @@ __A comprehensive software engineering program course management system built wi
 - **json2csv** - CSV export functionality
 
 **Frontend**
+
 - **React** - UI library
 - **Vite** - Build tool
 - **React Router** - Client-side routing
@@ -69,22 +78,24 @@ __A comprehensive software engineering program course management system built wi
 - **Context API** - State management
 
 **Run App Locally**
+
 - Backend
-    - Install packages: `npm install`
-    - Create `.env` file from example: `cp .env.example .env`
-    - Port 5000
-    - `npm run dev`
-    - Runs with nodemon for auto-restart
+  - Install packages: `npm install`
+  - Create `.env` file from example: `cp .env.example .env`
+  - Port 5000
+  - `npm run dev`
+  - Runs with nodemon for auto-restart
 - Frontend
-    - Install packages: `npm install`
-    - Port 3000
-    - `npm run dev`
-    - Runs Vite dev server with HMR
+  - Install packages: `npm install`
+  - Port 3000
+  - `npm run dev`
+  - Runs Vite dev server with HMR
 - Configure ports and CORS
 
 ### Project File Structure
 
 **Frontend**
+
 ```plaintext
 frontend/
 ├── src/
@@ -141,6 +152,7 @@ frontend/
 ```
 
 **Backend**
+
 ```plaintext
 backend/
 ├── config/
@@ -196,96 +208,122 @@ backend/
 ### Backend API Endpoints
 
 **Authentication**
+
 - `GET /api/auth/github` - Initiate GitHub OAuth
 - `GET /api/auth/github/callback` - OAuth callback
 - `GET /api/auth/me` - Get current user
 
 **Courses**
+
 - `GET /api/courses` - Get all courses
 - `POST /api/courses` - Create course (admin)
 - `PUT /api/courses/:id` - Update course (admin)
 - `DELETE /api/courses/:id` - Delete course (admin)
 
 **Assignments**
+
 - `GET /api/assignments` - Get all assignments
 - `POST /api/assignments` - Create assignment (admin)
 - `POST /api/assignments/bulk-assign` - Assign to all participants (admin)
 
 **Submissions**
+
 - `GET /api/submissions` - Get submissions
 - `POST /api/submissions` - Submit assignment
 - `GET /api/submissions/export` - Export to CSV (admin)
 
 **Feedback**
+
 - `GET /api/feedback/:submissionId` - Get feedback
 - `POST /api/feedback` - Create feedback (admin/volunteer)
 
 **Progress**
+
 - `GET /api/progress/:userId` - Get user progress
 - `PUT /api/progress` - Update progress
 
 **Surveys**
+
 - `POST /api/surveys/templates` - Create survey template (admin)
 - `POST /api/surveys/responses` - Submit survey response
 - `GET /api/surveys/results/:assignmentId` - View results (admin)
 
 **Notifications**
+
 - `GET /api/notifications` - Get user notifications
 - `GET /api/notifications/unread-count` - Get unread count
 - `PUT /api/notifications/:id/read` - Mark as read
 - `PUT /api/notifications/mark-all-read` - Mark all as read
 
+**Health Check**
+
+- `GET /health` - Server health status
+
 ### GitHub Login Integration
+
 1. Go to GitHub Settings > Developer Settings > OAuth Apps
 2. Click "New OAuth App"
 3. Fill in the details (local URLS):
-   - **Application name**: Course Management System
+   - **Application name**: Course Management Software
    - **Homepage URL**: `http://localhost:3000`
    - **Authorization callback URL**: `http://localhost:5000/api/auth/github/callback`
 4. Click "Register application"
 5. Copy the **Client ID** and **Client Secret**
-3. Add credentials to the `backend/.env` file:
-    ```plaintext
-    GITHUB_CLIENT_ID=your_client_id
-    GITHUB_CLIENT_SECRET=your_client_secret
-    ```
-4. Implement OAuth callback handling
+6. Add credentials to the `backend/.env` file:
+   ```plaintext
+   GITHUB_CLIENT_ID=your_client_id
+   GITHUB_CLIENT_SECRET=your_client_secret
+   ```
+7. Implement OAuth callback handling
 
 ### Email Configuration
+
 **G-Mail SMTP**
+
 1. Enable 2-factor authentication on your Gmail account
 2. Generate an App Password:
    - Go to Google Account > Security > 2-Step Verification > App passwords
    - Generate a new app password for "Mail"
 3. Add to `backend/.env`:
-    ```plaintext
-    SMTP_HOST=smtp.gmail.com
-    SMTP_PORT=587
-    SMTP_USER=your_email@gmail.com
-    SMTP_PASSWORD=your_app_password_here
-    SMTP_FROM=Course Management <noreply@coursemanagement.com>
-    ```
+   ```plaintext
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_USER=your_email@gmail.com
+   SMTP_PASSWORD=your_app_password_here
+   SMTP_FROM=Course Management <noreply@coursemanagement.com>
+   ```
 
 **Using Other SMTP Services**
+
 1. Sign up for email service
 2. Get API key or SMTP credentials
 3. Add to .env file
 4. Configure email templates + SMTP settings in `backend/.env` according to your email provider's documentation.
 
+**Testing Authentication**
+
+- Ensure backend is running on port 5000
+- Start frontend: `npm run dev`
+- Click "Login with GitHub" button
+- Authorize with GitHub
+- You'll be redirected back and logged in
+- Navigate to your role-specific dashboard
+
+### Environment Variables
+   - Database credentials
+   - GitHub OAuth credentials
+   - JWT secret (generate a random string)
+   - SMTP email credentials
+   - Frontend URL
+
 ### Database
+
 **Database Creation and Connection**
 1. Open PostgreSQL command line or pgAdmin: `psql -U postgres;`
 2. Create a PostgreSQL database: `CREATE DATABASE course_management;`
-3. Run the migration script: `psql -U postgres -d course_management -f migrations/001_initial_schema.sql`
-- Test data (optional step): `psql -U postgres -d course_management -f seeds/test_data.sql`
-- Create new file (002_migration_name.sql): `psql -U postgres -d course_management -f 002_migration_name.sql`
-5. Create a .env file with:
-    - Database credentials
-    - GitHub OAuth credentials (see GitHub OAuth Setup below)
-    - JWT secret
-    - SMTP email credentials
-    - Frontend URL    
-4. Run the migration scripts in `backend/migrations` with `npm run migrate`
+3. Run initial migration script in `backend/migrations`: `npm run migrate`, you may need to edit the script to `psql course_management -f migrations/001_initial_schema.sql`
+4. Run test data (optional step) script: `npm run seed`, you may need to edit the script to `psql course_management -f seeds/test_data.sql`
+5. Create new file (002_migration_name.sql): `psql -U postgres -d course_management -f 002_migration_name.sql` (you may not need `-U postgres -d` depending on your postgresql setup)
 
 **Schema with Nine Tables**
 
@@ -369,43 +407,54 @@ backend/
 ### Production Deployment
 
 ### Testing
+
 - Write and run unit tests
-    - Testing Library Installation: `npm install --save-dev jest supertest @testing-library/react`
-    - Run Tests: `npm test`
+  - Testing Library Installation: `npm install --save-dev jest supertest @testing-library/react`
+  - Run Tests: `npm test`
 - Perform integration testing
 - User acceptance testing
 
 ### Troubleshooting
 
 **Database Connection Issues**
+
 - Verify PostgreSQL is running: `pg_isready`
 - Check database credentials in `.env`
 - Ensure database exists: `psql -l`
 
 **GitHub OAuth Issues**
+
 - Verify callback URL matches GitHub OAuth app settings
 - Check Client ID and Secret in `.env`
 - Ensure frontend URL is correct
 
 **Email Not Sending**
+
 - Verify SMTP credentials
 - Check email service allows SMTP access
 - For Gmail, ensure App Password is used (not regular password)
 
 **CORS Issues**
+
 - Verify `FRONTEND_URL` in backend `.env` matches frontend URL
 - Check CORS configuration in `backend/server.js`
+
+**Port already in use:**
+
+- Change PORT in `.env` file
+- Kill process using port 5000: `lsof -ti:5000 | xargs kill`
 
 ### Design System
 
 **Color Palette**
+
 - **Primary**: Bondi Blue (#0093B5)
 - **Secondary**: Indigo (#05556D)
 - **Accent**: Spiro Disco Ball (#16C1F3), Pumpkin (#FC7625)
 - **Neutrals**: Black (#000000), White (#FFFFFF)
 
 **Typography**
+
 - **Font Family**: Lato
 - **Base Size**: 19.2px
 - **Line Height**: 1.5 (28.88px)
-

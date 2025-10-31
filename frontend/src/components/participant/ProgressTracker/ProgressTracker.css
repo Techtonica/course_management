@@ -1,0 +1,85 @@
+/* ProgressTracker Component Styles */
+
+.progress-tracker {
+  background-color: var(--color-white);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.progress-tracker h2 {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.course-progress {
+  margin-bottom: var(--spacing-xl);
+}
+
+.course-progress:last-child {
+  margin-bottom: 0;
+}
+
+.course-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.course-progress-header h3 {
+  color: var(--color-gray-800);
+  margin-bottom: 0;
+  font-size: 1.25rem;
+}
+
+.course-progress-percentage {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 1.125rem;
+}
+
+.progress-bar {
+  height: 12px;
+  background-color: var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--spacing-lg);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  transition: width 0.5s ease;
+}
+
+.assignment-progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.assignment-progress-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s ease;
+}
+
+.assignment-progress-item:hover {
+  background-color: var(--color-gray-100);
+}
+
+.assignment-progress-title {
+  flex: 1;
+  font-weight: 400;
+  color: var(--color-gray-800);
+}
+
+.assignment-progress-date {
+  font-size: 0.875rem;
+  color: var(--color-gray-500);
+}

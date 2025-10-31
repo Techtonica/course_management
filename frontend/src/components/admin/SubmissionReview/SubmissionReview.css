@@ -1,0 +1,87 @@
+/* SubmissionReview Component Styles */
+
+.submission-review {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.submission-filters {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.submission-table-container {
+  overflow-x: auto;
+}
+
+.submission-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-white);
+}
+
+.submission-table th {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: var(--spacing-md);
+  text-align: left;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.submission-table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.submission-table tr:hover {
+  background-color: var(--color-gray-100);
+}
+
+.student-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.student-username {
+  font-size: 0.875rem;
+  color: var(--color-gray-500);
+}
+
+.github-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.github-link:hover {
+  text-decoration: underline;
+}
+
+.status-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.status-badge.status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.status-reviewed {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.status-needs_revision {
+  background-color: #fee2e2;
+  color: #991b1b;
+}

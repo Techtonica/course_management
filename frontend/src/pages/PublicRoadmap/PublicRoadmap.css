@@ -1,0 +1,282 @@
+.roadmap-page {
+  min-height: 100vh;
+  background-color: var(--color-white);
+}
+
+.roadmap-header {
+  background: linear-gradient(135deg, var(--color-bondi-blue) 0%, var(--color-indigo) 100%);
+  color: var(--color-white);
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.header-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.header-content p {
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+
+.roadmap-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.course-selector {
+  margin-bottom: 3rem;
+}
+
+.course-selector h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.course-tabs {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.course-tab {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-spiro-disco-ball);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-indigo);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.course-tab:hover {
+  border-color: var(--color-bondi-blue);
+  color: var(--color-bondi-blue);
+  cursor: pointer;
+}
+
+.course-tab.active {
+  background-color: var(--color-bondi-blue);
+  border-color: var(--color-bondi-blue);
+  color: var(--color-white);
+}
+
+.course-details {
+  background: var(--color-white);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.course-header {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--color-spiro-disco-ball);
+}
+
+.course-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-black);
+  margin-bottom: 1rem;
+}
+
+.course-description {
+  font-size: 1.125rem;
+  color: var(--color-indigo);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.repo-link {
+  display: inline-block;
+  color: var(--color-bondi-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.repo-link:hover {
+  text-decoration: underline;
+}
+
+.assignments-timeline h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 3rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--color-spiro-disco-ball);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -3rem;
+  top: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assignment-number {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--color-bondi-blue);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 4px solid var(--color-white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item.past .assignment-number {
+  background-color: var(--color-indigo);
+}
+
+.timeline-content {
+  background: #f8f9fa;
+  border-left: 4px solid var(--color-bondi-blue);
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+
+.timeline-item.past .timeline-content {
+  border-left-color: var(--color-indigo);
+  opacity: 0.8;
+}
+
+.assignment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.assignment-header h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-black);
+}
+
+.due-date {
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.due-date.upcoming {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.due-date.past {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.assignment-description {
+  color: var(--color-indigo);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.instruction-link {
+  color: var(--color-bondi-blue);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.instruction-link:hover {
+  text-decoration: underline;
+}
+
+.roadmap-footer {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 4rem;
+  border-top: 2px solid var(--color-spiro-disco-ball);
+}
+
+.roadmap-footer p {
+  color: var(--color-indigo);
+  font-size: 1.125rem;
+}
+
+.loading,
+.error,
+.no-courses,
+.no-assignments {
+  text-align: center;
+  padding: 3rem;
+  color: var(--color-indigo);
+  font-size: 1.125rem;
+}
+
+.error {
+  color: var(--color-pumpkin);
+}
+
+@media (max-width: 768px) {
+  .header-content h1 {
+    font-size: 2rem;
+  }
+
+  .timeline {
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    left: 1rem;
+  }
+
+  .timeline-marker {
+    left: -2rem;
+  }
+
+  .assignment-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,107 @@
+/* CourseManager Component Styles */
+
+.course-manager {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.manager-header h2 {
+  color: var(--color-primary);
+  margin-bottom: 0;
+}
+
+.manager-form {
+  background-color: var(--color-gray-100);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-primary);
+}
+
+.manager-form h3 {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.course-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.course-item {
+  background-color: var(--color-white);
+  border: 2px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  transition: all 0.2s ease;
+}
+
+.course-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.course-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.course-item-header h3 {
+  color: var(--color-gray-800);
+  margin-bottom: 0;
+  font-size: 1.25rem;
+}
+
+.public-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-success);
+  color: var(--color-white);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.course-description {
+  color: var(--color-gray-600);
+  margin-bottom: var(--spacing-md);
+  line-height: var(--line-height-relaxed);
+}
+
+.course-repo-link {
+  display: inline-block;
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  transition: color 0.2s ease;
+}
+
+.course-repo-link:hover {
+  color: var(--color-primary-dark);
+}
+
+.course-item-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-gray-500);
+  font-size: 1.125rem;
+}

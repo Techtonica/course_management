@@ -1,0 +1,68 @@
+.volunteer-dashboard {
+  min-height: 100vh;
+  background-color: var(--color-white);
+}
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+  font-size: 1rem;
+  color: var(--color-indigo);
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--color-spiro-disco-ball);
+}
+
+.tab-button {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-indigo);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+}
+
+.tab-button:hover:not(:disabled) {
+  color: var(--color-bondi-blue);
+  cursor: pointer;
+}
+
+.tab-button.active {
+  color: var(--color-bondi-blue);
+  border-bottom-color: var(--color-bondi-blue);
+}
+
+.tab-button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.dashboard-content {
+  background: var(--color-white);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
