@@ -322,10 +322,10 @@ backend/
 **Database Creation and Connection**
 
 1. Open PostgreSQL command line or pgAdmin: `psql -U postgres;`
-2. Create a PostgreSQL database: `CREATE DATABASE course_management;`
-3. Run initial migration script in `backend/migrations`: `npm run migrate`, you may need to edit the script to `psql course_management -f migrations/001_initial_schema.sql`
+2. Create a PostgreSQL database: `CREATE DATABASE course_management_system;`
+3. Run initial migration script in `backend/migrations`: `npm run migrate`, you may need to edit the script to `psql ` -U $DB_USER -d `course_management_system -f migrations/001_initial_schema.sql`
 4. Run test data (optional step) script: `npm run seed`, you may need to edit the script to `psql -U $DB_USER -d $DB_NAME -f migrations/001_initial_schema.sql`
-5. Create new file (002_migration_name.sql): `psql -U $DB_USER -d $DB_NAME -f seeds/test_data.sql` 
+5. Create new file (002_migration_name.sql): `psql -U $DB_USER -d $DB_NAME -f seeds/test_data.sql` (you may not need `-U postgres -d` depending on your postgresql setup)
 
 **Schema with Nine Tables**
 
@@ -419,30 +419,30 @@ backend/
 ### Troubleshooting
 
 **Database Connection Issues**
-
 - Verify PostgreSQL is running: `pg_isready`
-- Check database credentials in `.env`
+- Check to see if you have several databases with similar names using `psql -U your_username -l | grep course`, make sure your `.env`. is pointing to the correct one
+- Check database credentials in `.env` using `cat backend/.env | grep DB_`
 - Ensure database exists: `psql -l`
 
-**GitHub OAuth Issues**
+**Roadmap Failed to Fetch Courses**
+- Check if course exists: `psql -U daaimahtibrey -d  course_management_system -c "SELECT id, title, course_id FROM assignments;"`
+- Check if course assignment exists: `psql -U daaimahtibrey -d  course_management_system -c "SELECT id, title, course_id FROM assignments;"`
 
+**GitHub OAuth Issues**
 - Verify callback URL matches GitHub OAuth app settings
 - Check Client ID and Secret in `.env`
 - Ensure frontend URL is correct
 
 **Email Not Sending**
-
 - Verify SMTP credentials
 - Check email service allows SMTP access
 - For Gmail, ensure App Password is used (not regular password)
 
 **CORS Issues**
-
 - Verify `FRONTEND_URL` in backend `.env` matches frontend URL
 - Check CORS configuration in `backend/server.js`
 
 **Port already in use:**
-
 - Change PORT in `.env` file
 - Kill process using port 5000: `lsof -ti:5000 | xargs kill`
 

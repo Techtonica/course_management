@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "migrate": "psql -U daaimahtibrey -d course_management_system -f migrations/001_initial_schema.sql",
-    "seed": "psql -U daaimahtibrey -d course_management_system -f seeds/test_data.sql"
+    "migrate": "psql -U $DB_USER -d $DB_NAME -f migrations/001_initial_schema.sql",
+    "seed": "psql -U $DB_USER -d $DB_NAME -f seeds/test_data.sql"
   },
   "keywords": ["course", "management", "education"],
   "author": "",
