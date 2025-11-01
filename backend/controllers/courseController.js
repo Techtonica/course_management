@@ -3,7 +3,7 @@ const Course = require("../models/Course")
 // Get all courses
 exports.getAllCourses = async (req, res) => {
   try {
-    const isPublicOnly = req.user.role === "participant" || !req.user
+    const isPublicOnly = !req.user || req.user?.role === "participant"
     const courses = await Course.getAll(isPublicOnly)
     res.json(courses)
   } catch (error) {
