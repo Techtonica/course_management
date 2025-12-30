@@ -2,6 +2,8 @@
 
 A comprehensive software engineering program course management system built with PostgreSQL, Express, React, and Node.js for managing assignments, submissions, feedback, and progress tracking.
 
+<img width="1081" height="586" alt="Techtonica Course Management Dashboard Screenshot" src="https://github.com/user-attachments/assets/71648ab5-c49b-466a-9f4b-2938316e29b3" />
+
 ### Prerequisites
 
 - Node.js (v18 or higher)
